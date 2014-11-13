@@ -81,17 +81,17 @@
 
     function resize( ) {
 
-      var width = renderer.domElement.clientWidth;
+      var width  = renderer.domElement.clientWidth;
       var height = renderer.domElement.clientHeight;
 
       if (renderer.domElement.width  != width ||
           renderer.domElement.height != height) {
 
-        uniforms.resolution.value.x = width;
-        uniforms.resolution.value.y = height;
-
         renderer.setSize( width, height, false );
 
+        // We can't use width and height because three.js doesn't respect what we tell it.
+        uniforms.resolution.value.x = renderer.domElement.width;
+        uniforms.resolution.value.y = renderer.domElement.height;
       }
 
     }
