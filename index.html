@@ -29,7 +29,7 @@
 
   </body>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/three.js/r69/three.js"></script>
+  <script src="three.min.js"></script>
   <script src="load.js"></script>
 
   <script type="text/javascript">
@@ -51,6 +51,8 @@
     function init() {
 
       container = document.getElementById( 'container' );
+      renderer = new THREE.WebGLRenderer();
+      container.appendChild( renderer.domElement );
 
       camera = new THREE.Camera();
       camera.position.z = 1;
@@ -75,14 +77,15 @@
       var mesh = new THREE.Mesh( geometry, material );
       scene.add( mesh );
 
-      renderer = new THREE.WebGLRenderer();
-      container.appendChild( renderer.domElement );
     }
 
     function resize( ) {
 
-      var width  = renderer.domElement.clientWidth;
-      var height = renderer.domElement.clientHeight;
+      var devicePixelRatio = window.devicePixelRatio || 1;
+
+      // we need to divide by device pixel ratio because three.js multiplies by it :(
+      var width  = renderer.domElement.clientWidth  / devicePixelRatio;
+      var height = renderer.domElement.clientHeight / devicePixelRatio;
 
       if (renderer.domElement.width  != width ||
           renderer.domElement.height != height) {
